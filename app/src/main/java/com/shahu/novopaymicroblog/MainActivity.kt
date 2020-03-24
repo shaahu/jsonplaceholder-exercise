@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.VolleyError
 import com.shahu.novopaymicroblog.extractor.ObjectExtractor
 import com.shahu.novopaymicroblog.fragments.HomeFragment
+import com.shahu.novopaymicroblog.helper.Constants.FRAGMENT_CLICK_USER
 import com.shahu.novopaymicroblog.helper.Constants.GET_ALL_USERS_REQUEST
+import com.shahu.novopaymicroblog.helper.IFragmentListener
 import com.shahu.novopaymicroblog.helper.IVolleyResponse
 import com.shahu.novopaymicroblog.helper.VolleyRequest
 import com.shahu.novopaymicroblog.models.User
@@ -14,7 +16,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IFragmentListener {
 
     private var mIVolleyResponseCallback: IVolleyResponse? = null
     private var mVolleyRequest: VolleyRequest? = null
@@ -67,7 +69,18 @@ class MainActivity : AppCompatActivity() {
         val bundle = Bundle()
         bundle.putParcelableArrayList("list", users)
         homeFragment.arguments = bundle
+        homeFragment.setFragmentCallback(this)
         supportFragmentManager.beginTransaction()
             .add(R.id.main_fragment, homeFragment, "home_fragment").commit()
+    }
+
+    override fun onFragmentItemClicked(arg: String?, type: String?) {
+        when (type) {
+            FRAGMENT_CLICK_USER -> usernameClicked(arg)
+        }
+    }
+
+    private fun usernameClicked(id: String?) {
+
     }
 }

@@ -19,4 +19,7 @@ object Constants {
 
     //Request Types
     const val GET_ALL_USERS_REQUEST = "get_all_users"
+
+    //Fragment Click Types
+    const val FRAGMENT_CLICK_USER = "user_click"
 }

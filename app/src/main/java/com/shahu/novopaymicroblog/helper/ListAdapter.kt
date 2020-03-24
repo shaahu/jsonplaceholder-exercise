@@ -7,14 +7,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shahu.novopaymicroblog.R
 import com.shahu.novopaymicroblog.models.User
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by Shahu Ronghe on 25, March, 2020
  * in Novopay Microblog
  */
-class ListAdapter(private val list: ArrayList<Parcelable>?)
-    : RecyclerView.Adapter<ListAdapter.UserViewHolder>() {
+class ListAdapter(
+    private val list: ArrayList<Parcelable>?,
+    private val clickListener: (User) -> Unit
+) :
+    RecyclerView.Adapter<ListAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,7 +26,7 @@ class ListAdapter(private val list: ArrayList<Parcelable>?)
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user: User = list?.get(position) as User
-        holder.bind(user)
+        holder.bind(user, clickListener)
     }
 
     override fun getItemCount(): Int = list!!.size
@@ -37,8 +40,9 @@ class ListAdapter(private val list: ArrayList<Parcelable>?)
             mUserName = itemView.findViewById(R.id.list_item_username)
         }
 
-        fun bind(user: User) {
+        fun bind(user: User, clickListener: (User) -> Unit) {
             mUserName?.text = user.name
+            itemView.setOnClickListener { clickListener(user) }
         }
 
     }
