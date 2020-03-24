@@ -1,0 +1,2 @@
+rootProject.name='Novopay Microblog'
+include ':app'
