@@ -2,6 +2,7 @@ package com.shahu.novopaymicroblog
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,9 +53,11 @@ class UserDetailsActivity : AppCompatActivity() {
             },
             Response.ErrorListener { error: VolleyError? ->
                 Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
+                post_progress_bar.visibility = View.GONE
             }
         )
         mRequestQueue.add(jsonArrayRequest)
+        post_progress_bar.visibility = View.VISIBLE
     }
 
     private fun displayUserDetails(response: JSONArray) {
@@ -74,6 +77,7 @@ class UserDetailsActivity : AppCompatActivity() {
                 postClicked(post)
             }
         }
+        post_progress_bar.visibility = View.GONE
     }
 
     private fun postClicked(post: Post) {

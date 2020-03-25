@@ -12,9 +12,7 @@ import java.util.*
  * Created by Shahu Ronghe on 25, March, 2020
  * in Novopay Microblog
  */
-class CommentListAdapter(
-    private val list: ArrayList<Comment>?
-) :
+class CommentListAdapter(private val list: ArrayList<Comment>?) :
     RecyclerView.Adapter<CommentListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,7 +48,7 @@ class CommentListAdapter(
             val name = comment.name
             val email = comment.email
             val body = comment.body
-            return "Id: $id\nComment Name: $name\nCommenter Email: $email\nComment Body\n$body"
+            return "Id: $id\n\nComment Name: $name\n\nCommenter Email: $email\n\nComment Body:\n$body"
         }
 
     }

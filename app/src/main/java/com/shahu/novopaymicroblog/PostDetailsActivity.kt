@@ -1,6 +1,7 @@
 package com.shahu.novopaymicroblog
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,6 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.shahu.novopaymicroblog.adapters.CommentListAdapter
-import com.shahu.novopaymicroblog.adapters.PostListAdapter
 import com.shahu.novopaymicroblog.extractor.ObjectExtractor
 import com.shahu.novopaymicroblog.helper.Constants
 import com.shahu.novopaymicroblog.models.Comment
@@ -57,9 +57,11 @@ class PostDetailsActivity : AppCompatActivity() {
             },
             Response.ErrorListener { error: VolleyError? ->
                 Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
+                comment_progress_bar.visibility = View.GONE
             }
         )
         mRequestQueue.add(jsonArrayRequest)
+        comment_progress_bar.visibility = View.VISIBLE
     }
 
     private fun displayComments(response: JSONArray) {
@@ -78,5 +80,6 @@ class PostDetailsActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = CommentListAdapter(comments)
         }
+        comment_progress_bar.visibility = View.GONE
     }
 }

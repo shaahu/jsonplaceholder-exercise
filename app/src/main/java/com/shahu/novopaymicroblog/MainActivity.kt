@@ -2,6 +2,7 @@ package com.shahu.novopaymicroblog
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,9 +12,9 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.shahu.novopaymicroblog.adapters.UserListAdapter
 import com.shahu.novopaymicroblog.extractor.ObjectExtractor
 import com.shahu.novopaymicroblog.helper.Constants
-import com.shahu.novopaymicroblog.adapters.UserListAdapter
 import com.shahu.novopaymicroblog.models.User
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
@@ -39,8 +40,10 @@ class MainActivity : AppCompatActivity() {
                     displayAllUsers(response)
             }, Response.ErrorListener { error: VolleyError? ->
                 Toast.makeText(applicationContext, error.toString(), Toast.LENGTH_SHORT).show()
+                user_progress_bar.visibility = View.GONE
             })
         mRequestQueue.add(jsonObjectRequest)
+        user_progress_bar.visibility = View.VISIBLE
     }
 
     private fun displayAllUsers(response: JSONArray) {
@@ -60,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                     usernameClicked(user)
                 }
         }
+        user_progress_bar.visibility = View.GONE
     }
 
     private fun usernameClicked(user: User) {

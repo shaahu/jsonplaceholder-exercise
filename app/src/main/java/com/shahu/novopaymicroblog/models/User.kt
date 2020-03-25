@@ -7,7 +7,7 @@ import android.os.Parcelable
  * Created by Shahu Ronghe on 24, March, 2020
  * in Novopay Microblog
  */
-class User() : Parcelable{
+class User() : Parcelable {
     var id = 0
     var name: String? = null
     var email: String? = null
