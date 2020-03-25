@@ -1,6 +1,5 @@
-package com.shahu.novopaymicroblog.helper
+package com.shahu.novopaymicroblog.adapters
 
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -13,31 +12,34 @@ import java.util.*
  * Created by Shahu Ronghe on 25, March, 2020
  * in Novopay Microblog
  */
-class ListAdapter(
-    private val list: ArrayList<Parcelable>?,
+class UserListAdapter(
+    private val list: ArrayList<User>?,
     private val clickListener: (User) -> Unit
 ) :
-    RecyclerView.Adapter<ListAdapter.UserViewHolder>() {
+    RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return UserViewHolder(inflater, parent)
+        return ViewHolder(
+            inflater,
+            parent
+        )
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user: User = list?.get(position) as User
         holder.bind(user, clickListener)
     }
 
     override fun getItemCount(): Int = list!!.size
 
-    class UserViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+    class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.user_list_item, parent, false)) {
         private var mUserName: TextView? = null
 
 
         init {
-            mUserName = itemView.findViewById(R.id.list_item_username)
+            mUserName = itemView.findViewById(R.id.tv_name)
         }
 
         fun bind(user: User, clickListener: (User) -> Unit) {
